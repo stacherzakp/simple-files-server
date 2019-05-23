@@ -16,7 +16,7 @@ class FilesService(val filesConfiguration: FilesConfiguration) {
     }
 
     fun updateFile(newFile: File, id: String): FileDescriptor {
-        return FileDescriptor("", "", 123)
+        return FileDescriptor("", "", 124)
     }
 
     fun getConfiguration(): FilesConfiguration {
