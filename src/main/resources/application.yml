@@ -1,0 +1,7 @@
+files:
+  upload:
+    maxSize: "1024"
+    allowedExtensions: ["jpg", "png"]
+  download:
+    contentType: "application/json"
+
