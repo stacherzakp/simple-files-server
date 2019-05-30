@@ -1,27 +1,29 @@
 package com.staszkox.files.server
 
+import org.springframework.core.io.Resource
+import org.springframework.core.io.UrlResource
 import org.springframework.stereotype.Service
-import java.io.File
-import java.util.*
+import java.net.URLConnection
+import java.nio.file.Path
+import java.nio.file.Paths
 
 @Service
-class FilesService(val filesConfiguration: FilesConfiguration) {
+class FilesService(private final val filesConfigurationProperties: FilesConfigurationProperties) {
 
-    fun getFile(id: String): File? {
-        return null
+    private final val uploadDir: Path = Paths.get(filesConfigurationProperties.uploadDir)
+            .toAbsolutePath().normalize()
+
+    fun getFile(id: String): ResourceDescriptor {
+
+        val filePath = uploadDir.resolve("test.txt").normalize()
+        val contentType = URLConnection.guessContentTypeFromName("test.txt")
+
+        return ResourceDescriptor(UrlResource(filePath.toUri()), "test.txt", contentType)
     }
 
-    fun saveFile(file: File): FileDescriptor {
-        return FileDescriptor(id = UUID.randomUUID().toString(), fileName = "", size = 123)
-    }
-
-    fun updateFile(newFile: File, id: String): FileDescriptor {
-        return FileDescriptor("", "", 124)
-    }
-
-    fun getConfiguration(): FilesConfiguration {
-        return filesConfiguration
+    fun getConfiguration(): FilesConfigurationProperties {
+        return filesConfigurationProperties
     }
 }
 
-data class FileDescriptor(val id: String = "", val fileName: String, val size: Long)
+data class ResourceDescriptor(val resource: Resource, val fileName: String, val contentType: String)

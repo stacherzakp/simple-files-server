@@ -7,7 +7,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.runApplication
 
 @SpringBootApplication(exclude = [DataSourceAutoConfiguration::class, DataSourceTransactionManagerAutoConfiguration::class])
-@EnableConfigurationProperties(FilesConfiguration::class)
+@EnableConfigurationProperties(FilesConfigurationProperties::class)
 class SimpleFilesServerApplication
 
 fun main(args: Array<String>) {
